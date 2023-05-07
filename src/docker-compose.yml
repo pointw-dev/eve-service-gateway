@@ -1,0 +1,27 @@
+version: '3'
+services:
+  eve-service-gateway:
+    image: eve-service-gateway
+    container_name: eve-service-gateway
+    ports:
+      - "2112:80"
+    environment:
+      - ES_INSTANCE_NAME=eve-service-gateway development container
+      - ES_MONGO_HOST=eve-service-gateway-mongo
+    volumes:
+    - ./logs:/var/log/eve-service-gateway
+    depends_on:
+      - eve-service-gateway-mongo
+
+  eve-service-gateway-mongo:
+    image: mongo
+    container_name: eve-service-gateway-mongo
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb      
+    ports:
+      - "27017:27017"
+
+volumes:
+    mongodb:
+    mongodb_config:
