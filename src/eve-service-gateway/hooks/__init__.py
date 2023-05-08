@@ -34,7 +34,6 @@ def add_hooks(app):
     hooks.registrations.add_hooks(app)
 
 
-
 @trace
 def _post_POST(resource, request, payload):
     if payload.status_code == 201:
@@ -58,7 +57,7 @@ def _fix_links(resource, request, payload):
 
         if resource is None:
             try:
-                _handle_schema_request(j, payload, request)
+                j = _handle_schema_request(j, payload, request)
             except EtagException as ex:
                 payload.status_code = ex.status_code
                 payload.data = b''
@@ -75,7 +74,7 @@ def _fix_links(resource, request, payload):
 
 
 def _handle_schema_request(j, payload, request):
-    etag = _rewrite_schema_links(j)
+    j, etag = _rewrite_schema_links(j)
     payload.headers.add_header('Etag', etag)
     j['_etag'] = etag
 
@@ -84,8 +83,10 @@ def _handle_schema_request(j, payload, request):
 
     if if_none_match_header == '*' or etag in if_none_match_header:
         raise EtagException(304)
-    if etag not in if_match_header:
+    if if_match_header and etag not in if_match_header:
         raise EtagException(412)
+
+    return j
 
 
 @trace
@@ -105,8 +106,8 @@ def _rewrite_schema_links(item):
         new_links = _create_new_schema_links(base_url, old)
         item['_links'] = new_links
 
-    _create_gateway_links(item)
-    return hashlib.md5(json.dumps(item['_links']).encode('utf-8')).hexdigest()
+    item = _create_gateway_links(item)
+    return item, hashlib.md5(json.dumps(item['_links']).encode('utf-8')).hexdigest()
 
 
 @trace
@@ -166,9 +167,13 @@ def _create_gateway_links(j):
     curies = []
     all_links = dict()
     for record in registration_col.find():
-        _append_base_url(record)
         for key, value in record["rels"].items():
-            if registration_col.count_documents({"$and": [{f"rels.{key}": {'$exists': 1}}, {'name': {"$ne": record["name"]}}]}) or j["_links"].get(f"{key}") != None:
+            if registration_col.count_documents({
+                "$and": [
+                    {f"rels.{key}": {'$exists': 1}},
+                    {'name': {"$ne": record["name"]}}
+                ]
+            }) or j["_links"].get(f"{key}") is not None:
                 all_links[record["name"] + ":" + key] = record["rels"][key]
             else:
                 all_links[key] = record["rels"][key]
@@ -185,10 +190,3 @@ def _create_gateway_links(j):
     if curies:
         j["_links"]["curies"] = curies
     return j
-
-
-@trace
-def _append_base_url(registration_instance):
-    for key, value in registration_instance["rels"].items():
-        value["href"] = registration_instance["baseUrl"] + value["href"]
-
