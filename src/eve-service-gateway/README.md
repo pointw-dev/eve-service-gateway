@@ -60,23 +60,23 @@ The API is configured via environment variables.  These can be set in in several
 
 The base variables are prefixed with ES_ for Eve Service.  The environment variables you can set are:
 
-| Variable                  | Description                                                  | Default                                                     |
-| ------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
-| ES_API_NAME               | The name of your API.  Appears in logs and emails.           | The name you used with `eve-utils api create` (i.e. eve-service-gateway)                              |
-| ES_MONGO_ATLAS            | Set to Enabled (or True, or Yes) to use the following Mongo values to construct the MONGO_URI.  If disabled, will use a non-Atlas connection. | Disabled                                                    |
-| ES_MONGO_HOST             |                                                              | localhost                                                   |
-| ES_MONGO_PORT             | (ignored if ES_MONGO_ATLAS is enabled)                       | 27017                                                       |
-| ES_MONGO_DBNAME           |                                                              | The name you used with `eve-utils api create` (i.e. eve-service-gateway)                             |
-| ES_API_PORT               |                                                              | 2112                                                        |
-| ES_INSTANCE_NAME          | This name appears in logs and in error emails                | The hostname the API is running on (`socket.gethostname()`) |
-| ES_TRACE_LOGGING          | When enabled, causes logs to include enter/exit/exception details for each method - not something to have enabled in production. | Enabled                                                     |
-| ES_PAGINATION_LIMIT       | Eve pass-through                                             | 3000                                                        |
-| ES_PAGINATION_DEFAULT     | Eve pass-through                                             | 1000                                                        |
-| ES_LOG_TO_FOLDER          | (disable if deploying as serverless as there is no folder to log to) | Enabled                                                     |
-| ES_SEND_ERROR_EMAILS      | (only works if the following values are set)                 | Enabled                                                     |
-| ES_SMTP_HOST              |                                                              | internal.cri.com                                            |
-| ES_SMTP_PORT              |                                                              | 25                                                          |
-| ES_ERROR_EMAIL_RECIPIENTS |                                                              | michael@pointw.com                                          |
+| Variable                  | Description                                                  | Default                                                                  |
+| ------------------------- | ------------------------------------------------------------ |--------------------------------------------------------------------------|
+| ES_API_NAME               | The name of your API.  Appears in logs and emails.           | The name you used with `eve-utils api create` (i.e. eve-service-gateway) |
+| ES_MONGO_ATLAS            | Set to Enabled (or True, or Yes) to use the following Mongo values to construct the MONGO_URI.  If disabled, will use a non-Atlas connection. | Disabled                                                                 |
+| ES_MONGO_HOST             |                                                              | localhost                                                                |
+| ES_MONGO_PORT             | (ignored if ES_MONGO_ATLAS is enabled)                       | 27017                                                                    |
+| ES_MONGO_DBNAME           |                                                              | The name you used with `eve-utils api create` (i.e. eve-service-gateway) |
+| ES_API_PORT               |                                                              | 2112                                                                     |
+| ES_INSTANCE_NAME          | This name appears in logs and in error emails                | The hostname the API is running on (`socket.gethostname()`)              |
+| ES_TRACE_LOGGING          | When enabled, causes logs to include enter/exit/exception details for each method - not something to have enabled in production. | Enabled                                                                  |
+| ES_PAGINATION_LIMIT       | Eve pass-through                                             | 3000                                                                     |
+| ES_PAGINATION_DEFAULT     | Eve pass-through                                             | 1000                                                                     |
+| ES_LOG_TO_FOLDER          | (disable if deploying as serverless as there is no folder to log to) | Enabled                                                                  |
+| ES_SEND_ERROR_EMAILS      | (only works if the following values are set)                 | Enabled                                                                  |
+| ES_SMTP_HOST              |                                                              | mail.pointw.com                                                         |
+| ES_SMTP_PORT              |                                                              | 25                                                                       |
+| ES_ERROR_EMAIL_RECIPIENTS |                                                              | michael@pointw.com                                                       |
 
 Optional environment variables
 

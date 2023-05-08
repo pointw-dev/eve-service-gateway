@@ -52,7 +52,7 @@ SETTINGS_GATEWAY = settings.Settings.instance()
 SETTINGS_GATEWAY.set_prefix_description(
     'GW', 'Gateway Service base configuration')
 SETTINGS_GATEWAY.create('GW', {
-    "CURIES_BASE_URL":  "uri://cri.com"})
+    "CURIES_BASE_URL":  "uri://pointw.com"})
 if SETTINGS.is_enabled('ES_SEND_ERROR_EMAILS'):
     SETTINGS.create('ES', 'SMTP_PORT', default_value=25)
     SETTINGS.create('ES', 'SMTP_HOST', is_optional=True)
