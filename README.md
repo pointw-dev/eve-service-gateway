@@ -1,10 +1,12 @@
 # eve-service-gateway
+`eve-service-gateway` is a simple API that allows other EveService-based APIs to register.  Once registered, that API's resources/rels appear in the root of the gateway.  In this way, clients can go to the gateway and find all resources provided by all registered APIs.
+
 
 The audience of this README is the **client developer**, i.e. someone who will **use** `eve-service-gateway`.
 
 If you are an **API developer** who will make changes to `eve-service-gateway` itself, please see [`src/eve-service-gateway/README.md`](./src/eve-service-gateway/README.md).
 
-
+> **WARNING**: this is currently a work in progress.  It is functional, but not yet ready for production.  It is subject to improvements and breaking changes.  This notice will be removed once everything has stabilized.
 
 ## Getting Started
 
