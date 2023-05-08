@@ -48,7 +48,11 @@ SETTINGS.create('ES', 'MONGO_PASSWORD', is_optional=True)
 SETTINGS.create('ES', 'MONGO_AUTH_SOURCE', is_optional=True)
 SETTINGS.create('ES', 'MEDIA_BASE_URL', is_optional=True)
 SETTINGS.create('ES', 'PUBLIC_RESOURCES', is_optional=True)
-
+SETTINGS_GATEWAY = settings.Settings.instance()
+SETTINGS_GATEWAY.set_prefix_description(
+    'GW', 'Gateway Service base configuration')
+SETTINGS_GATEWAY.create('GW', {
+    "CURIES_BASE_URL":  "uri://cri.com"})
 if SETTINGS.is_enabled('ES_SEND_ERROR_EMAILS'):
     SETTINGS.create('ES', 'SMTP_PORT', default_value=25)
     SETTINGS.create('ES', 'SMTP_HOST', is_optional=True)
